@@ -30,17 +30,18 @@ import me.icxd.bookshelve.model.bean.Book;
 /**
  * Created by HaPBoy on 5/18/16.
  */
-public class BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class
+BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     public static final int TYPE_ALL = 1;
     public static final int TYPE_FAVORITE = 2;
 
     private static final String ARG_TYPE = "type";
-    private int type = TYPE_ALL; // 显示的数据（全部、收藏）
+    private int type = TYPE_ALL; // Data display (all, favorites)
     
-    private GridView gridView; // 网格列表
-    private BookGridAdapter bookGridAdapter; // 数据适配器
-    private int gridPosition = -1; // 选中项的position
+    private GridView gridView; // Grid List
+    private BookGridAdapter bookGridAdapter; // Data Adapter
+    private int gridPosition = -1; // position of the selected item
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -96,10 +97,10 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
         TextView tvText = (TextView) emptyView.findViewById(R.id.tv_text);
         if (type == TYPE_FAVORITE) {
             ivIcon.setImageDrawable(new IconicsDrawable(getContext()).icon(GoogleMaterial.Icon.gmd_favorite).colorRes(R.color.grid_empty_icon).sizeDp(40));
-            tvText.setText("暂无收藏");
+            tvText.setText("No Favorites Books");
         } else {
             ivIcon.setImageDrawable(new IconicsDrawable(getContext()).icon(GoogleMaterial.Icon.gmd_import_contacts).colorRes(R.color.grid_empty_icon).sizeDp(48));
-            tvText.setText("暂无图书");
+            tvText.setText("No Favorites Sheets");
         }
         gridView.setEmptyView(emptyView);
 
@@ -124,8 +125,8 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add(1, 1, 1, "删除选中");
-        menu.add(1, 2, 1, "删除全部");
+        menu.add(1, 1, 1, "delete selected");
+        menu.add(1, 2, 1, "Remove all");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -134,17 +135,17 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
         Log.i("HB", "onContextItemSelected:adapter.getCount(): " + bookGridAdapter.getCount());
         Log.i("HB", "onContextItemSelected:gridPosition: " + gridPosition);
         if (item.getItemId() == 1 && gridPosition != -1) {
-            // 删除选中
+            // delete selected
             new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("确定删除这本图书吗")
-                    .setContentText("删除后将无法恢复。")
-                    .setConfirmText("是的")
-                    .setCancelText("取消")
+                    .setTitleText("This book sure to delete it")
+                    .setContentText("Unable to recover deleted after。")
+                    .setConfirmText("Yes")
+                    .setCancelText("cancel")
                     .showCancelButton(true)
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
-                            // 刷新数据
+                            // Refresh Data
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -156,9 +157,9 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
                             }, 800);
 
                             sDialog
-                                    .setTitleText("删除成功")
-                                    .setContentText("该本图书已被成功删除。")
-                                    .setConfirmText("确定")
+                                    .setTitleText("successfully deleted")
+                                    .setContentText("The book has been successfully removed。")
+                                    .setConfirmText("determine")
                                     .showCancelButton(false)
                                     .setConfirmClickListener(null)
                                     .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -166,17 +167,17 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
                     })
                     .show();
         } else if (item.getItemId() == 2) {
-            // 删除全部
+            // Remove all
             new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("确定删除全部图书吗")
-                    .setContentText("删除后将无法恢复。")
-                    .setConfirmText("是的")
-                    .setCancelText("取消")
+                    .setTitleText("Sure to delete all Books")
+                    .setContentText("Unable to recover deleted after.")
+                    .setConfirmText("Yes")
+                    .setCancelText("cancel")
                     .showCancelButton(true)
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
-                            // 刷新数据
+                            // Refresh Data
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -187,9 +188,9 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
                                 }
                             }, 1000);
                             sDialog
-                                    .setTitleText("删除成功")
-                                    .setContentText("全部图书已被成功删除。")
-                                    .setConfirmText("确定")
+                                    .setTitleText("successfully deleted")
+                                    .setContentText("All books have been successfully removed。")
+                                    .setConfirmText("determine")
                                     .showCancelButton(false)
                                     .setConfirmClickListener(null)
                                     .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -203,6 +204,12 @@ public class BookGridFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     public void fetchData() {
+        // TODO: 30/09/2016   should be changed to get data from our server by jsom to implement into list<Book> into bookGridAdapter.setData
+        // Emil
+        //here is the link : http://www.mocky.io/v2/57eeaccc260000c61d1111cd
+        //json you should be getting back  : {"result":"true","dataarray":[{"recordID":"book1","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book2","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book3","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"}]}
+        //need to implement somehow async task to fetch data and build data into list<Book>
+        //try completing the async fentch first :)
         Log.i("HB", type + "GridFragment.fetchData");
         if (type == TYPE_FAVORITE) {
             bookGridAdapter.setData(DataSupport.where("favourite = ?", "1").order("id desc").find(Book.class));

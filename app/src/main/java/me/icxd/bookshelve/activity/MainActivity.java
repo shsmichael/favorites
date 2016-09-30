@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     // ViewPagerIndicator
     private ViewPagerIndicator viewPagerIndicator;
-    private List<String> titles = Arrays.asList("全部", "收藏");
+    private List<String> titles = Arrays.asList("Books", "Sheets");
 
     // Fragment
     private List<Fragment> fragments = new ArrayList<Fragment>();
@@ -63,15 +63,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 顶部ToolBar
+        // Top ToolBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // 右下角浮动菜单
+        // Lower right corner of the floating menu
         final FloatingActionMenu fabMenu = (FloatingActionMenu) findViewById(R.id.fabmenu);
         fabMenu.setClosedOnTouchOutside(true);
 
-        // 右下角浮动按钮 - 扫一扫
+        // Floating the bottom right button - sweep the
         final FloatingActionButton fabBtnScanner = (FloatingActionButton) findViewById(R.id.fab_scanner);
         fabBtnScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
-        // 右下角浮动按钮 - 添加
+        // Floating the bottom right button - Add
         FloatingActionButton fabBtnAdd = (FloatingActionButton) findViewById(R.id.fab_add);
         fabBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +93,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
-        // 左上角 Menu 按钮
+        // Menu button in the upper left corner
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        // 菜单
+        // menu
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
 
-        // 设置数据适配器
+        // Menu settings data adapter
         viewPager.setAdapter(pagerAdapter);
         viewPagerIndicator.setViewPager(viewPager, 0);
     }

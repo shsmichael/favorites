@@ -54,6 +54,6 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
         ClipboardManager manager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText("msg", info);
         manager.setPrimaryClip(clipData);
-        Snackbar.make(view, "已经复制到剪切板", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(view, "It has been copied to the clipboard", Snackbar.LENGTH_SHORT).show();
     }
 }

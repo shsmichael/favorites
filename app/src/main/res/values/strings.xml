@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">书柜</string>
+    <string name="app_name">bookcase</string>
 
-    <string name="navigation_drawer_open">打开菜单</string>
-    <string name="navigation_drawer_close">关闭菜单</string>
+    <string name="navigation_drawer_open">Open the menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
 
-    <string name="action_settings">设置</string>
-    <string name="menu_favorite">收藏</string>
-    <string name="menu_save">保存</string>
-    <string name="menu_browser">在浏览器中打开</string>
-    <string name="menu_more">菜单</string>
+    <string name="action_settings">Set up</string>
+    <string name="menu_favorite">Collect</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_browser">Open the browser</string>
+    <string name="menu_more">menu</string>
 
-    <string name="note_edit_hint">你在阅读中想写的批注、摘抄及随感。</string>
+    <string name="note_edit_hint">You want to write in the reading annotation, extract and Essay.</string>
 </resources>

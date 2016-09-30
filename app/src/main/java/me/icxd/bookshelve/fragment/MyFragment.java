@@ -16,13 +16,13 @@ import android.widget.TextView;
  */
 public class MyFragment extends Fragment {
     
-    private static final String BUNDLE_TITLE = "title"; //设置bundle的key
-    private String title; // 传过来的title
+    private static final String BUNDLE_TITLE = "title"; //The key set bundle
+    private String title; // Pass over title
 
     /**
-     * fragment一般使用newInstance方法new出实例
+     * ffragment generally used an example of a new method newInstance
      *
-     * @param title 屏幕显示的文字
+     * @param title Text screen
      * @return fragment
      */
     public static MyFragment newInstance(String title) {

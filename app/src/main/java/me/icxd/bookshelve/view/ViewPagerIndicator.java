@@ -28,27 +28,27 @@ public class ViewPagerIndicator extends HorizontalScrollView {
 
     private Context mContext;
 
-    private List<String> mTitles; // 接收传递过来的title
-    private ViewPager mViewPager; // 接收关联的ViewPager
+    private List<String> mTitles; // Receiving the passed title
+    private ViewPager mViewPager; // Receiving ViewPager associated
 
-    private LinearLayout llTabRoot; // Tab布局
-    private RelativeLayout rlRoot; // 根布局
-    private View vLine; // 横线
+    private LinearLayout llTabRoot; // TabLayout
+    private RelativeLayout rlRoot; // Root layout
+    private View vLine; // Horizontal line
     private RelativeLayout.LayoutParams lineLayoutParams;
 
-    private int mTabVisibleCount; // 可见tab的数量
-    private int mSizeText; // tab标签文字大小(sp)
-    private int mColorTextNormal; // 正常字体颜色
-    private int mColorTextHighlight; // 高亮字体颜色
-    private int mColorLine; // 横线颜色
-    private int mHeightLine; // 线高(dp)
+    private int mTabVisibleCount; // The number of visible tab
+    private int mSizeText; // tab label text size (sp)
+    private int mColorTextNormal; // Normal font color
+    private int mColorTextHighlight; // Highlight Font Color
+    private int mColorLine; // Horizontal color
+    private int mHeightLine; // High Line(dp)
 
-    private static final int COUNT_DEFAULT_TAB = 4; // 默认可见tab为4个
-    private static final int SIZE_TEXT = 16; // 默认tab标签文字大小(sp)
-    private static final int COLOR_TEXT_NORMAL = Color.parseColor("#000000"); // 默认正常字体颜色
-    private static final int COLOR_TEXT_HIGHLIGHT = Color.parseColor("#FFFFFF"); // 默认高亮字体颜色
-    private static final int COLOR_LINE = Color.parseColor("#000000"); // 默认横线颜色
-    private static final int HEIGHT_LINE = 2; // 默认线高(dp)
+    private static final int COUNT_DEFAULT_TAB = 4; // The default tab is visible 4
+    private static final int SIZE_TEXT = 16; // The default tab label text size(sp)
+    private static final int COLOR_TEXT_NORMAL = Color.parseColor("#000000"); // The default font color normal
+    private static final int COLOR_TEXT_HIGHLIGHT = Color.parseColor("#FFFFFF"); // Highlight the default font color
+    private static final int COLOR_LINE = Color.parseColor("#000000"); // The default horizontal color
+    private static final int HEIGHT_LINE = 2; // The default line height(dp)
 
     public ViewPagerIndicator(Context context) {
         super(context, null);
@@ -58,7 +58,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
         super(context, attrs);
         mContext = context;
 
-        // 获取XML中的配置属性
+        // Get XML configuration attributes
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.ViewPagerIndicator);
         mTabVisibleCount = attributes.getInt(R.styleable.ViewPagerIndicator_tab_visible_count, COUNT_DEFAULT_TAB);
         if (mTabVisibleCount < 0) {
@@ -77,18 +77,18 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     private void initViews() {
         setHorizontalScrollBarEnabled(false);
 
-        // 根布局
+        // Root layout
         rlRoot = new RelativeLayout(mContext);
         rlRoot.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         this.addView(rlRoot);
 
-        // Tab布局
+        // Tab Layout
         llTabRoot = new LinearLayout(mContext);
         llTabRoot.setOrientation(LinearLayout.HORIZONTAL);
         llTabRoot.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         rlRoot.addView(llTabRoot);
 
-        // 横线
+        // Tab horizontal layout
         vLine = new View(mContext);
         lineLayoutParams = new RelativeLayout.LayoutParams(getScreenWidth() / mTabVisibleCount, DpToPx(mHeightLine));
         lineLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -98,8 +98,8 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * xml加载完成之后，回调此方法
-     * 设置每个tab的LayoutParams
+     * After xml loading is complete, the callback method
+     * The settings on each tab of LayoutParams
      */
     @Override
     protected void onFinishInflate() {
@@ -122,7 +122,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 动态设置tab的数量
+     * Dynamic settings tab number
      *
      * @param count
      */
@@ -132,7 +132,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 动态设置tab
+     * Dynamic settings tab
      *
      * @param titles
      */
@@ -148,7 +148,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 根据title创建tab
+     * Create tab according to title
      *
      * @param title
      * @return view
@@ -167,7 +167,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
 
 
     /**
-     * 跟随ViewPager移动
+     * Follow ViewPager Mobile
      *
      * @param position
      * @param positionOffset
@@ -190,7 +190,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 设置关联的ViewPager
+     * Set associated ViewPager
      *
      * @param viewpager
      * @param position
@@ -220,7 +220,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 高亮被点击的tab
+     * Click on the tab is highlighted
      *
      * @param position
      */
@@ -233,7 +233,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 重置tab文本颜色
+     * Reset tab text color
      */
     private void resetTextViewColor() {
         for (int i = 0; i < llTabRoot.getChildCount(); i++) {
@@ -245,7 +245,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 设置Tab的点击事件
+     * Setting Tab click event
      */
     private void setItemClickEvent() {
         int childCount = llTabRoot.getChildCount();
@@ -262,7 +262,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 获取屏幕的宽度
+     * Gets the width of the screen
      *
      * @return screenWidth
      */
@@ -274,9 +274,9 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     /**
-     * 将DP转换为PX
+     * The DP is converted to PX
      *
-     * @param dp 要转换的像素无关单位
+     * @param dp Pixel-independent units to be converted
      * @return int
      */
     private int DpToPx(double dp) {

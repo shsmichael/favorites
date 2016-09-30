@@ -81,14 +81,14 @@ public class BookNoteFragment extends Fragment {
     }
 
     public void loadData() {
-        // 图书数据
+        // Books data
         Book book = DataSupport.find(Book.class, booId);
 
         String note = book.getNote();
         String note_date = book.getNote_date();
 
         if (note.isEmpty()) {
-            note = "\n暂无笔记，点击右上角的按钮开始写笔记吧！\n";
+            note = "\nNo notes, top right, click the button to start to write notes it! \n";
         }
         tvContent.setText(note);
 

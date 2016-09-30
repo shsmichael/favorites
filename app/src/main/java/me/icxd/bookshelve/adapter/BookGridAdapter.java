@@ -78,7 +78,7 @@ public class BookGridAdapter extends BaseAdapter {
         viewHolder = (BookGridViewHolder) convertView.getTag();
         Book bean = list.get(position);
 
-        // 设置图片
+        // Set Picture
         Glide.with(viewHolder.ivCover.getContext())
                 .load(bean.getImage())
                 .centerCrop()
@@ -86,7 +86,7 @@ public class BookGridAdapter extends BaseAdapter {
                 .placeholder(new IconicsDrawable(viewHolder.ivCover.getContext()).icon(GoogleMaterial.Icon.gmd_import_contacts).color(Color.GRAY).paddingDp(10))
                 .into(viewHolder.ivCover);
 
-        // 设置其他
+        // Other settings
         viewHolder.tvTitle.setText(bean.getTitle());
         viewHolder.rbRate.setRating((Float.parseFloat(bean.getAverage())/2));
         viewHolder.tvRate.setText(bean.getAverage());

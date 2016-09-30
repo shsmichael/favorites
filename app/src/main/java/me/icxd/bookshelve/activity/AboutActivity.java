@@ -21,14 +21,14 @@ public class AboutActivity extends AppCompatActivity {
         // Context
         context = this;
 
-        // 返回按钮
+        // Back button
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Activity标题
-        setTitle("关于");
+        // Activity title
+        setTitle("On");
 
         // AboutFragment
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new AboutFragment()).commit();
