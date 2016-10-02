@@ -220,8 +220,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     }
 
     public void fetchData() {
-        // TODO: 30/09/2016   should be changed to get data from our server by jsom to implement into list<Book> into bookGridAdapter.setData
-        // Emil
+
         //here is the link : http://www.mocky.io/v2/57eeaccc260000c61d1111cd
         //json you should be getting back  : {"result":"true","dataarray":[{"recordID":"book1","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book2","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book3","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"}]}
         //need to implement somehow async task to fetch data and build data into list<Book>
