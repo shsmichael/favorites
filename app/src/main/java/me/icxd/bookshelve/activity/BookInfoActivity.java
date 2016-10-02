@@ -76,10 +76,13 @@ public class BookInfoActivity extends BaseActivity {
         }
 
         // Books ID
-        int bookId = getIntent().getIntExtra("id", -1);
+
+        //int bookId = getIntent().getIntExtra("id", -1);
+         book =(Book) getIntent().getSerializableExtra("book");
+        int  bookId =book.getId();
 
         // Books Obj
-        book = DataSupport.find(Book.class, bookId);
+        //book = DataSupport.find(Book.class, bookId);
 
         // Activity title
         setTitle(book.getTitle());
@@ -93,10 +96,12 @@ public class BookInfoActivity extends BaseActivity {
         viewPagerIndicator.setVisibleTabCount(3);
 
         // Basic Information Fragment
-        fragments.add(BookInfoItemFragment.newInstance(bookId));
+       // fragments.add(BookInfoItemFragment.newInstance(bookId));
+        fragments.add(BookInfoItemFragment.newInstance(book));
 
         // Book Description Fragment
-        fragments.add(BookIntroFragment.newInstance(bookId));
+        //fragments.add(BookIntroFragment.newInstance(bookId));
+        fragments.add(BookIntroFragment.newInstance(book));
 
         // My notes Fragment
         fragments.add(BookNoteFragment.newInstance(bookId));
@@ -119,7 +124,10 @@ public class BookInfoActivity extends BaseActivity {
         viewPagerIndicator.setViewPager(viewPager, 0);
 
         // Book cover
-        Fragment bookCoverragment = BookCoverFragment.newInstance(bookId);
+        //should be sent with book as intent
+
+        //Fragment bookCoverragment = BookCoverFragment.newInstance(bookId);
+        Fragment bookCoverragment = BookCoverFragment.newInstance(book);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_book_cover, bookCoverragment).commit();
     }
 

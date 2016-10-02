@@ -135,7 +135,9 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-        intent.putExtra("id", (int) bookGridAdapter.getItemId(position));
+        intent.putExtra("book",  (Book)bookGridAdapter.getItem(position));
+       // intent.putExtra("id", (int) bookGridAdapter.getItemId(position));
+
         startActivity(intent);
     }
 
@@ -326,6 +328,20 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
                     currentbook.setTitle(bookobj.getString("recordID"));
                     currentbook.setImage(bookobj.getString("pageLink"));
                     currentbook.setAverage("3");
+                    //needed for viewer
+
+                    currentbook.setAuthor("Michael Gonic :)");
+                    currentbook.setPublisher("Bitch Please :)");
+                    currentbook.setOrigin_title("Bitch Please :)");
+                    currentbook.setTranslator("Bitch Please :)");
+                    currentbook.setPubdate("Bitch Please :)");
+                    currentbook.setPages("Bitch Please :)))");
+                    currentbook.setPrice("Not For poor Students");
+                    currentbook.setBinding("Dont even know what binding is");
+                    currentbook.setIsbn13("Isbn13 what??");
+                    currentbook.setSummary("in summary, i need a break ");
+                    currentbook.setAuthor_intro("nanananan batman");
+                    currentbook.setCatalog("IKEA 2016");
                     bookList.add(currentbook);
 
                 }

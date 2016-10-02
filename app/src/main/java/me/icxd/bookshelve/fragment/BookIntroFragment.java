@@ -61,16 +61,16 @@ public class BookIntroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ListView lv = (ListView) inflater.inflate(R.layout.fragment_book_intro_list, container, false);
 
-        // 数据
+        // data
         data = new ArrayList<>();
-        if (!book.getSummary().isEmpty()) data.add(new TagItem("内容简介", book.getSummary()));
-        if (!book.getAuthor_intro().isEmpty()) data.add(new TagItem("作者简介", book.getAuthor_intro()));
-        if (!book.getCatalog().isEmpty()) data.add(new TagItem("图书目录", book.getCatalog()));
+        if (!book.getSummary().isEmpty()) data.add(new TagItem("brief introduction", book.getSummary()));
+        if (!book.getAuthor_intro().isEmpty()) data.add(new TagItem("About the Author", book.getAuthor_intro()));
+        if (!book.getCatalog().isEmpty()) data.add(new TagItem("Book Catalog", book.getCatalog()));
 
-        // 列表适配器
+        // List Adapter
         BookIntroAdapter lvBaseAdapter = new BookIntroAdapter(getContext(), data);
 
-        // 列表
+        // List
         lv.setAdapter(lvBaseAdapter);
 
         return lv;

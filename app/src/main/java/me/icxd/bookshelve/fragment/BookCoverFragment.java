@@ -36,6 +36,8 @@ public class BookCoverFragment extends Fragment {
 
     private Book book;
 
+    // Michael gonic: Should be using Book !!!
+
     public static BookCoverFragment newInstance(int bookId) {
         BookCoverFragment fragment = new BookCoverFragment();
         Bundle args = new Bundle();
@@ -76,7 +78,7 @@ public class BookCoverFragment extends Fragment {
 
         View viewRate = view.findViewById(R.id.book_rate);
 
-        // 图书封面
+        // Book cover
         Glide.with(ivBookCover.getContext())
                 .load(book.getImage())
                 .centerCrop()
@@ -85,7 +87,7 @@ public class BookCoverFragment extends Fragment {
                 .error(new IconicsDrawable(getContext()).icon(GoogleMaterial.Icon.gmd_book).colorRes(R.color.boo_cover_icon))
                 .into(ivBookCover);
 
-        // 背景
+        // background
         Glide.with(ivBookCoverBg.getContext())
                 .load(book.getImage())
                 .centerCrop()
@@ -93,15 +95,15 @@ public class BookCoverFragment extends Fragment {
                 .bitmapTransform(new BlurTransformation(ivBookCoverBg.getContext(), 25, 3))
                 .into(ivBookCoverBg);
 
-        // 图书评分
+        // Book Review
         tvRate.setText(book.getAverage());
         rbRate.setRating((Float.parseFloat(book.getAverage())/2));
 
-        // 图书封面入场动画
+        // Admission animated book cover
         Animation cover_an = AnimationUtils.loadAnimation(getContext(), R.anim.book_cover_anim);
         ivBookCover.startAnimation(cover_an);
 
-        // 图书评分入场动画
+        // Admission Anime Books Review
         Animation rate_an = AnimationUtils.loadAnimation(getContext(), R.anim.book_cover_rate_anim);
         viewRate.startAnimation(rate_an);
 

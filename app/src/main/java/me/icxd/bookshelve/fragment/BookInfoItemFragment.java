@@ -62,22 +62,22 @@ public class BookInfoItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ListView lv = (ListView) inflater.inflate(R.layout.fragment_book_info_item_list, container, false);
 
-        // 数据
+        // data
         data = new ArrayList<>();
-        data.add(new TagItem("作者", book.getAuthor()));
-        data.add(new TagItem("出版社", book.getPublisher()));
-        if (!book.getOrigin_title().isEmpty()) data.add(new TagItem("原作名", book.getOrigin_title()));
-        if (!book.getTranslator().isEmpty()) data.add(new TagItem("译者", book.getTranslator()));
-        data.add(new TagItem("出版年", book.getPubdate()));
-        data.add(new TagItem("页数", book.getPages()));
-        data.add(new TagItem("定价", book.getPrice()));
-        if (!book.getBinding().isEmpty()) data.add(new TagItem("装帧", book.getBinding()));
+        data.add(new TagItem("Author", book.getAuthor()));
+        data.add(new TagItem("Press", book.getPublisher()));
+        if (!book.getOrigin_title().isEmpty()) data.add(new TagItem("Original name", book.getOrigin_title()));
+        if (!book.getTranslator().isEmpty()) data.add(new TagItem("Translator", book.getTranslator()));
+        data.add(new TagItem("Published", book.getPubdate()));
+        data.add(new TagItem("Pages", book.getPages()));
+        data.add(new TagItem("Pricing", book.getPrice()));
+        if (!book.getBinding().isEmpty()) data.add(new TagItem("Binding", book.getBinding()));
         data.add(new TagItem("ISBN", book.getIsbn13()));
 
-        // 列表适配器
+        // List Adapter
         BookInfoAdapter lvBaseAdapter = new BookInfoAdapter(getContext(), data);
 
-        // 列表
+        // List
         lv.setAdapter(lvBaseAdapter);
 
         return lv;
