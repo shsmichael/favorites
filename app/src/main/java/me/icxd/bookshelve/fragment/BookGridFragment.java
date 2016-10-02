@@ -1,6 +1,8 @@
 package me.icxd.bookshelve.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -15,11 +17,23 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.icxd.bookshelve.R;
@@ -38,10 +52,11 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private static final String ARG_TYPE = "type";
     private int type = TYPE_ALL; // Data display (all, favorites)
-    
+
     private GridView gridView; // Grid List
     private BookGridAdapter bookGridAdapter; // Data Adapter
     private int gridPosition = -1; // position of the selected item
+    private ArrayList<Book> bookList;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -65,6 +80,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bookList = new ArrayList<Book>();
         if (getArguments() != null) {
             type = getArguments().getInt(ARG_TYPE);
         }
@@ -210,12 +226,17 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
         //json you should be getting back  : {"result":"true","dataarray":[{"recordID":"book1","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book2","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"},{"recordID":"book3","favName":"fav 41","pageNumber":"1","description":"No Description","type":"Book","pageLink":"http://pngimg.com/upload/book_PNG2111.png"}]}
         //need to implement somehow async task to fetch data and build data into list<Book>
         //try completing the async fentch first :)
-        Log.i("HB", type + "GridFragment.fetchData");
+        /*Log.i("HB", type + "GridFragment.fetchData");
         if (type == TYPE_FAVORITE) {
             bookGridAdapter.setData(DataSupport.where("favourite = ?", "1").order("id desc").find(Book.class));
         } else {
             bookGridAdapter.setData(DataSupport.order("id desc").find(Book.class));
-        }
+        }*/
+
+        getFavoritesTask getfavtask = new getFavoritesTask();
+        getfavtask.execute((Void) null);
+
+
     }
 
     @Override
@@ -224,5 +245,100 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
         Log.i("HB", type + "GridFragment.onResume");
         fetchData();
         bookGridAdapter.notifyDataSetChanged();
+    }
+
+    public class getFavoritesTask extends AsyncTask<Void, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(Void... params) {
+
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+            String serverJsonStr = null;
+            try {
+                final String SERVER_BASE_URL = "http://www.mocky.io/v2/57eeaccc260000c61d1111cd";
+                Uri builtUri = Uri.parse(SERVER_BASE_URL).buildUpon().build();
+                URL url = new URL(builtUri.toString());
+                Log.v("getFavoritesURL:", builtUri.toString());
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null)
+                    return null; // Nothing to do.
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "\n");
+                }
+                if (buffer.length() == 0)
+                    return null;
+                serverJsonStr = buffer.toString();
+                Log.d("getFavoritesjson:", serverJsonStr);
+
+            } catch (IOException e) {
+                Log.e("LOGE", "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attempting
+                // to parse it.
+                return null;
+
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("LOGE", "Error closing stream", e);
+                    }
+                }
+            }
+
+            JSONObject serverJson = null;
+            try {
+                serverJson = new JSONObject(serverJsonStr);
+                return serverJson;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        ////////////////////////////////////////////////////////////////////// ON POST EXECUTE
+        @Override
+        protected void onPostExecute(final JSONObject object) {
+            try {
+                JSONArray jarray = null;
+                String answer = null;
+
+                if (object == null) {
+                    // something to do???
+                    return;
+                }
+                jarray = object.getJSONArray("dataarray");
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject bookobj = null;
+                    bookobj = jarray.getJSONObject(i);
+                    Book currentbook = new Book();
+                    currentbook.setId(i);
+                    currentbook.setTitle(bookobj.getString("recordID"));
+                    currentbook.setImage(bookobj.getString("pageLink"));
+                    currentbook.setAverage("3");
+                    bookList.add(currentbook);
+
+                }
+
+                bookGridAdapter.setData(bookList);
+                bookGridAdapter.notifyDataSetChanged();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 }
