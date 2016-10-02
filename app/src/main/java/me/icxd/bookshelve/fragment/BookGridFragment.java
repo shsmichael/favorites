@@ -62,7 +62,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (this.isVisible()) {
             if (isVisibleToUser) {
-                fetchData();
+                //fetchData();
                 bookGridAdapter.notifyDataSetChanged();
             }
         }
@@ -127,7 +127,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         bookGridAdapter = new BookGridAdapter(getContext());
         fetchData();
-        bookGridAdapter.notifyDataSetChanged();
+        //bookGridAdapter.notifyDataSetChanged();
         gridView.setAdapter(bookGridAdapter);
         super.onViewCreated(view, savedInstanceState);
     }
@@ -244,7 +244,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     public void onResume() {
         super.onResume();
         Log.i("HB", type + "GridFragment.onResume");
-        fetchData();
+        //fetchData();
         bookGridAdapter.notifyDataSetChanged();
     }
 
