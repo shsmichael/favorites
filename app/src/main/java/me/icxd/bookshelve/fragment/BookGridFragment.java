@@ -342,6 +342,10 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
                     currentbook.setSummary("in summary, i need a break ");
                     currentbook.setAuthor_intro("nanananan batman");
                     currentbook.setCatalog("IKEA 2016");
+                    currentbook.setNote("My Notes is here...");
+                    currentbook.setNote_date("Today");
+                    //
+
                     bookList.add(currentbook);
 
                 }

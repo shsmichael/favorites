@@ -36,7 +36,9 @@ import me.icxd.bookshelve.model.bean.Book;
 public class BookNoteFragment extends Fragment {
 
     private static final String ARG_BOOK_ID = "book_id";
+    private static final String ARG_BOOK = "book";
     private int booId = 1;
+    private Book book;
 
     private TextView tvContent;
     private TextView tvDate;
@@ -49,18 +51,28 @@ public class BookNoteFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    public static BookNoteFragment newInstance(Book book) {
+        BookNoteFragment fragment = new BookNoteFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_BOOK, book);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            booId = getArguments().getInt(ARG_BOOK_ID);
-        }
+
+        book = (Book) getArguments().getSerializable(ARG_BOOK);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentPanel = inflater.inflate(R.layout.fragment_book_note, container, false);
+
 
         tvContent = (TextView) contentPanel.findViewById(R.id.tv_content);
         tvDate = (TextView) contentPanel.findViewById(R.id.tv_date);
@@ -72,6 +84,7 @@ public class BookNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), BookNoteEditActivity.class);
+                // TODO: 02/10/2016  change bookid to book
                 intent.putExtra("id", booId);
                 startActivity(intent);
             }
@@ -82,7 +95,7 @@ public class BookNoteFragment extends Fragment {
 
     public void loadData() {
         // Books data
-        Book book = DataSupport.find(Book.class, booId);
+        //Book book = DataSupport.find(Book.class, booId);
 
         String note = book.getNote();
         String note_date = book.getNote_date();

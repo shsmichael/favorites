@@ -104,7 +104,7 @@ public class BookInfoActivity extends BaseActivity {
         fragments.add(BookIntroFragment.newInstance(book));
 
         // My notes Fragment
-        fragments.add(BookNoteFragment.newInstance(bookId));
+        fragments.add(BookNoteFragment.newInstance(book));
 
         // PagerAdapter
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
