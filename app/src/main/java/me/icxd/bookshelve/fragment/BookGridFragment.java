@@ -255,7 +255,7 @@ BookGridFragment extends Fragment implements AdapterView.OnItemClickListener {
             BufferedReader reader = null;
             String serverJsonStr = null;
             try {
-                final String SERVER_BASE_URL = "http://www.mocky.io/v2/57eeaccc260000c61d1111cd";
+                final String SERVER_BASE_URL = "http://www.mocky.io/v2/57f0a2d70f0000f60901353f";
                 Uri builtUri = Uri.parse(SERVER_BASE_URL).buildUpon().build();
                 URL url = new URL(builtUri.toString());
                 Log.v("getFavoritesURL:", builtUri.toString());
